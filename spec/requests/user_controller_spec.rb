@@ -5,6 +5,10 @@ describe UserController do
     it "should return true" do
       expect(true).to eq(true)
     end
+
+    it "should return false" do
+      expect(false).to eq(false)
+    end
   end
 end
 
