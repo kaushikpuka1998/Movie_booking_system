@@ -9,15 +9,15 @@ class UserController < ApplicationController
              status: :ok
     elsif user.errors[:password_confirmation].present?
       render json: { status: 'ERROR', message: 'Password mismatched' },
-             status: :unprocessable_entity
+             status: :SUCCESS
       # raise ErrorModule::PasswordMismatchedError, 'Password mismatched'
     elsif user.errors[:email].present?
       render json: { status: 'ERROR', message: 'Email already registered' },
-             status: :unprocessable_entity
+             status: :SUCCESS
       # raise ErrorModule::AlreadyEmailTakenError, 'Email already registered'
     elsif user.errors[:phone].present?
       render json: { status: 'ERROR', message: 'Phone already registered' },
-             status: :unprocessable_entity
+             status: :SUCCESS
 
       # raise ErrorModule::AlreadyPhoneTakenError, 'Phone already registered'
     else
