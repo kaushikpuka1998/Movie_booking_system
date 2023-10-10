@@ -13,6 +13,8 @@ module MovieBookingSystem
 
     config.autoload_paths += %W(#{config.root}/app/models/concerns)
     config.autoload_paths += %W(#{config.root}/app/controllers/exceptions)
+    config.autoload_paths += %W(#{config.root}/spec/requests)
+   
 
     # Configuration for the application, engines, and railties goes here.
     #
