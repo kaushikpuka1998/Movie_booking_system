@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_17_190449) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_17_191052) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -74,6 +74,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_17_190449) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "show_seats", force: :cascade do |t|
+    t.bigint "show_id", null: false
+    t.bigint "cinema_seat_id", null: false
+    t.boolean "booked"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cinema_seat_id"], name: "index_show_seats_on_cinema_seat_id"
+    t.index ["show_id"], name: "index_show_seats_on_show_id"
+  end
+
   create_table "shows", force: :cascade do |t|
     t.date "date"
     t.datetime "start_time"
@@ -91,4 +101,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_17_190449) do
   end
 
   add_foreign_key "cinema_seats", "shows", column: "cinema_hall_id"
+  add_foreign_key "show_seats", "cinema_seats"
+  add_foreign_key "show_seats", "shows"
 end
