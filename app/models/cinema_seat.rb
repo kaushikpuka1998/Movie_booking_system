@@ -1,3 +1,3 @@
 class CinemaSeat < ApplicationRecord
-  belongs_to :cinema_hall
+  belongs_to :show
 end

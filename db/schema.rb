@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_17_194008) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_17_211347) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cinema_hall_screens", force: :cascade do |t|
+    t.bigint "cinema_hall_id", null: false
+    t.bigint "screen_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cinema_hall_id"], name: "index_cinema_hall_screens_on_cinema_hall_id"
+    t.index ["screen_id"], name: "index_cinema_hall_screens_on_screen_id"
+  end
 
   create_table "cinema_halls", force: :cascade do |t|
     t.string "name"
@@ -28,6 +37,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_17_194008) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "show_id"
+    t.integer "screen_id"
     t.index ["cinema_hall_id"], name: "index_cinema_seats_on_cinema_hall_id"
   end
 
@@ -59,6 +69,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_17_194008) do
     t.integer "show_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "screen_id"
   end
 
   create_table "movie_crews", force: :cascade do |t|
@@ -73,6 +84,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_17_194008) do
     t.float "rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "screens", force: :cascade do |t|
+    t.string "name"
+    t.boolean "three_d"
+    t.boolean "two_d"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "cinema_hall_id"
   end
 
   create_table "show_seats", force: :cascade do |t|
@@ -101,6 +121,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_17_194008) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "cinema_hall_screens", "cinema_halls"
+  add_foreign_key "cinema_hall_screens", "screens"
   add_foreign_key "cinema_seats", "shows", column: "cinema_hall_id"
   add_foreign_key "show_seats", "cinema_seats"
   add_foreign_key "show_seats", "shows"
