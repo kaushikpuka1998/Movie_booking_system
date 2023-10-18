@@ -31,7 +31,8 @@ class MovieController < ApplicationController
     movie = Movie.find_by(id: params[:movie_id])
     return unless movie.present?
 
-    cinema_halls = movie.cinema_halls
+    cinema_halls = movie.unique_cinema_halls.by_city(params[:pincode])
+
     render json: { status: 'SUCCESS', message: 'Cinema halls fetched',
                    data: cinema_halls }
   end
