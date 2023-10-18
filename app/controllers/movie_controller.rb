@@ -53,7 +53,8 @@ class MovieController < ApplicationController
     end
     all_seats = show.cinema_seats.all_show
 
-    render json: { status: 'SUCCESS', message: 'Seats fetched', seats: all_seats }
+    render json: { status: 'SUCCESS', message: 'Seats fetched', show: show,
+                   seats: all_seats }
   end
   #--------------------------------functions----------------------
 
