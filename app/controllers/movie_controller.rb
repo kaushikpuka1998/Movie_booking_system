@@ -52,8 +52,13 @@ class MovieController < ApplicationController
       return
     end
     all_seats = show.cinema_seats.all_show
+    seat_data = all_seats.group_by(&:booked).transform_values(&:count)
+
+    booked_seats = seat_data[true] || 0
+    not_booked_seats = seat_data[nil] || 0
 
     render json: { status: 'SUCCESS', message: 'Seats fetched', show: show,
+                   booked_seats: booked_seats, not_booked_seats: not_booked_seats,
                    seats: all_seats }
   end
   #--------------------------------functions----------------------
