@@ -27,6 +27,16 @@ class MovieController < ApplicationController
     # crews = movie.crews
   end
 
+  def cinema_halls_by_movie
+    movie = Movie.find_by(id: params[:movie_id])
+    return unless movie.present?
+
+    cinema_halls = movie.cinema_halls
+    render json: { status: 'SUCCESS', message: 'Cinema halls fetched',
+                   data: cinema_halls }
+  end
+  #--------------------------------functions----------------------
+
   def shows_to_cinema_hall_map(show)
     shows_data =
       {
