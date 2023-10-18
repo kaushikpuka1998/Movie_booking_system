@@ -7,4 +7,6 @@ Rails.application.routes.draw do
 
   #UserController
   post "/signup", to: "user#create_user"
+  get '/movies_by_city/:pincode', to: 'user#movies_by_city'
+  get '/movie_shows/:show_id', to: 'user#movie_shows'
 end
