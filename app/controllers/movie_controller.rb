@@ -38,7 +38,8 @@ class MovieController < ApplicationController
 
     shows = cinema_halls.joins(hall_movie_shows: :show)
                         .where("start_time >= ?", DateTime.now)
-                        .select(:id, :name, :start_time, :end_time)
+                        .select(:id, :name, :start_time,
+                                :end_time, 'shows.id as show_id')
 
     render json: { status: 'SUCCESS', message: 'Cinema halls fetched',
                    cinema_halls: cinema_halls, shows: shows }
