@@ -17,19 +17,19 @@ class MovieController < ApplicationController
 
   def movie_shows
     show = Show.find_by(id: params[:show_id])
+    if show.present?
+      render json: { status: 'SUCCESS', message: 'Movies fetched',
+                     data: show }
+      return
+    end
     render json: { status: 'ERROR', message: 'No shows found' } if show.blank?
-    show_cinema_map = shows_to_cinema_hall_map(show)
-    movie = show.movies.last
-    crews = movie.crews
-
-    render json: { status: 'SUCCESS', message: 'Movies fetched',
-                   data: { movie: movie, shows: show_cinema_map, crews: crews } }
+    # movie = show.movies.last
+    # crews = movie.crews
   end
 
   def shows_to_cinema_hall_map(show)
     shows_data =
       {
-        id: show.id,
         start_time: show.start_time,
         end_time: show.end_time,
         cinema_hall: {
