@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'movie/movies_by_city'
+  get 'movie/movie_shows'
   get 'user/create_user'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -7,6 +9,6 @@ Rails.application.routes.draw do
 
   #UserController
   post "/signup", to: "user#create_user"
-  get '/movies_by_city/:pincode', to: 'user#movies_by_city'
-  get '/movie_shows/:show_id', to: 'user#movie_shows'
+  get '/movies_by_city/:pincode', to: 'movie#movies_by_city'
+  get '/movie_shows/:show_id', to: 'movie#movie_shows'
 end
