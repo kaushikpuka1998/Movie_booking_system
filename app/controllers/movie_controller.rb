@@ -29,12 +29,19 @@ class MovieController < ApplicationController
 
   def cinema_halls_by_movie
     movie = Movie.find_by(id: params[:movie_id])
-    return unless movie.present?
+    if movie.nil?
+      render json: { status: 'ERROR', message: 'No movies found' }
+      return
+    end
 
     cinema_halls = movie.unique_cinema_halls.by_city(params[:pincode])
 
+    shows = cinema_halls.joins(hall_movie_shows: :show)
+                        .where("start_time >= ?", DateTime.now)
+                        .select(:id, :name, :start_time, :end_time)
+
     render json: { status: 'SUCCESS', message: 'Cinema halls fetched',
-                   data: cinema_halls }
+                   cinema_halls: cinema_halls, shows: shows }
   end
   #--------------------------------functions----------------------
 
