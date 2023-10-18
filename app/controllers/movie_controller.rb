@@ -44,6 +44,17 @@ class MovieController < ApplicationController
     render json: { status: 'SUCCESS', message: 'Cinema halls fetched',
                    cinema_halls: cinema_halls, shows: shows }
   end
+
+  def show_seats
+    show = Show.find_by(id: params[:show_id])
+    if show.nil?
+      render json: { status: 'ERROR', message: 'No shows found' }
+      return
+    end
+    all_seats = show.cinema_seats.all_show
+
+    render json: { status: 'SUCCESS', message: 'Seats fetched', seats: all_seats }
+  end
   #--------------------------------functions----------------------
 
   def shows_to_cinema_hall_map(show)

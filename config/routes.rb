@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   get '/movies_by_city/:pincode', to: 'movie#movies_by_city'
   get '/movie_shows/:show_id', to: 'movie#movie_shows'
   get '/cinema_halls_by_movie/:pincode/:movie_id', to: 'movie#cinema_halls_by_movie'
+  get '/show_seats/:show_id', to: 'movie#show_seats'
 end
